@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>net.sourceforge.jtds.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:jtds:sqlserver://127.0.0.1:3898/educationdb</value>
+		</property>
+		<property name="username">
+			<value>sa</value>
+		</property>
+		<property name="password">
+			<value>123456</value>
+		</property> 
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mappingResources">
+			<list>
+				<value>com/bean/AllTeacher.hbm.xml</value>
+				<value>com/bean/CampusInfo.hbm.xml</value>
+				<value>com/bean/CourseInfo.hbm.xml</value>
+				<value>com/bean/EducationalCounseling.hbm.xml</value>
+				<value>com/bean/GoodStudent.hbm.xml</value>
+				<value>com/bean/GradeInfo.hbm.xml</value>
+				<value>com/bean/Manager.hbm.xml</value>
+				<value>com/bean/ProminentTeacher.hbm.xml</value>
+				<value>com/bean/RegionFirstInfo.hbm.xml</value>
+				<value>com/bean/RegionSecondInfo.hbm.xml</value>
+				<value>com/bean/YiDuiYi.hbm.xml</value>
+				<value>com/bean/EduCounselingFirstInfo.hbm.xml</value>
+				<value>com/bean/EduCounselingSecondInfo.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.SQLServerDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="txProxyTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref local="transactionManager" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="del*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 后台登录 -->
+	<bean id="managerDAO" class="com.dao.impl.ManagerDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="managerDAOProxy" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="managerDAO" />
+		</property>
+	</bean>
+	<bean id="managerService" class="com.service.impl.ManagerServiceImpl">
+		<property name="managerDAO" ref="managerDAOProxy"></property>
+	</bean>
+	<bean id="managerAction" class="com.action.ManagerAction" scope="prototype">
+		<property name="managerService" ref="managerService"></property>
+	</bean>
+	<!-- 基础信息添加 -->
+	<bean id="infoDAO" class="com.dao.impl.InfoDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="infoDAOProxy" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="infoDAO" />
+		</property>
+	</bean>
+	<bean id="infoService" class="com.service.impl.InfoServiceImpl">
+		<property name="infoDAO" ref="infoDAOProxy"></property>
+	</bean>
+	<bean id="infoAction" class="com.action.InfoAction" scope="prototype">
+		<property name="infoService" ref="infoService"></property>
+	</bean>
+	<!-- 校区添加 -->
+	<bean id="campusDAO" class="com.dao.impl.CampusDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="campusDAOProxy" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="campusDAO" />
+		</property>
+	</bean>
+	<bean id="campusService" class="com.service.impl.CampusServiceImpl">
+		<property name="campusDAO" ref="campusDAOProxy"></property>
+	</bean>
+	<bean id="campusAction" class="com.action.CampusAction" scope="prototype">
+		<property name="campusService" ref="campusService"></property>
+		<property name="infoService" ref="infoService"></property>
+	</bean>
+	<!-- 优秀教师 -->
+	<bean id="proTeacherDAO" class="com.dao.impl.ProTeacherDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="proTeacherDAOProxy" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="proTeacherDAO" />
+		</property>
+	</bean>
+	<bean id="proTeacherService" class="com.service.impl.ProTeacherServiceImpl">
+		<property name="proTeacherDAO" ref="proTeacherDAOProxy"></property>
+	</bean>
+	<bean id="proTeacherAction" class="com.action.ProTeacherAction" scope="prototype">
+		<property name="proTeacherService" ref="proTeacherService"></property>
+		<property name="infoService" ref="infoService"></property>
+		<property name="campusService" ref="campusService"></property>
+	</bean>
+	<!-- 教师名录 -->
+	<bean id="allTeacherDAO" class="com.dao.impl.AllTeacherDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="allTeacherDAOProxy" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="allTeacherDAO" />
+		</property>
+	</bean>
+	<bean id="allTeacherService" class="com.service.impl.AllTeacherServiceImpl">
+		<property name="allTeacherDAO" ref="allTeacherDAOProxy"></property>
+	</bean>
+	<bean id="allTeacherAction" class="com.action.AllTeacherAction" scope="prototype">
+		<property name="allTeacherService" ref="allTeacherService"></property>
+		<property name="infoService" ref="infoService"></property>
+		<property name="campusService" ref="campusService"></property>
+	</bean>
+	<!-- 一对一 -->
+	<bean id="yiDuiYiDAO" class="com.dao.impl.YiDuiYiDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="yiDuiYiDAOProxy" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="yiDuiYiDAO" />
+		</property>
+	</bean>
+	<bean id="yiDuiYiService" class="com.service.impl.YiDuiYiServiceImpl">
+		<property name="yiDuiYiDAO" ref="yiDuiYiDAOProxy"></property>
+	</bean>
+	<bean id="yiDuiYiAction" class="com.action.YiDuiYiAction" scope="prototype">
+		<property name="yiDuiYiService" ref="yiDuiYiService"></property>
+		<property name="infoService" ref="infoService"></property>
+	</bean>
+	<!-- 明星学员 -->
+	<bean id="goodStudentDAO" class="com.dao.impl.GoodStudentDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="goodStudentDAOProxy" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="goodStudentDAO" />
+		</property>
+	</bean>
+	<bean id="goodStudentService" class="com.service.impl.GoodStudentServiceImpl">
+		<property name="goodStudentDAO" ref="goodStudentDAOProxy"></property>
+	</bean>
+	<bean id="goodStudentAction" class="com.action.GoodStudentAction" scope="prototype">
+		<property name="goodStudentService" ref="goodStudentService"></property>
+		<property name="infoService" ref="infoService"></property>
+		<property name="allTeacherService" ref="allTeacherService"></property>
+		<property name="campusService" ref="campusService"></property>
+	</bean>
+	<!-- 教育咨询 -->
+	<bean id="educationalCounselingDAO" class="com.dao.impl.EducationalCounselingDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="educationalCounselingDAOProxy" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="educationalCounselingDAO" />
+		</property>
+	</bean>
+	<bean id="educationalCounselingService" class="com.service.impl.EducationalCounselingServiceImpl">
+		<property name="educationalCounselingDAO" ref="educationalCounselingDAOProxy"></property>
+	</bean>
+	<bean id="educationalCounselingAction" class="com.action.EducationalCounselingAction" scope="prototype">
+		<property name="educationalCounselingService" ref="educationalCounselingService"></property>
+		<property name="infoService" ref="infoService"></property>
+	</bean>
+</beans>

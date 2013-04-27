@@ -1,0 +1,64 @@
+@CHARSET "UTF-8";
+.news_0{ border-top:2px solid #ff6600; border-bottom:1px solid #e6e6e6; border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;float:left; background:#fff;background-image:url(/images/gradient.gif); background-position:0px -319px; background-repeat:repeat-x;}
+
+.news_1 { width:678px; float:left;  border-bottom:1px dotted #aaa; text-align:center; margin-left:30px; _margin-left:15px; padding-top:20px; padding-bottom:10px; }
+.news_1 h2{ line-height:60px; font-family:"微软雅黑"; color:#006699;  font-size:24px; font-weight:normal;}
+.news_2{ padding:50px; font-size:14px; float:left; line-height:28px; width:630px;}
+.news_2 img{max-width:630px;width:expression(document.body.clientWidth > 630? "630px": "auto" );}
+
+
+.news_3{ float:left; padding:20px;}
+.news_3 li{ line-height:35px;width:675px; border-bottom:1px dotted #ccc; background-position:0 10px; }
+.news_3 li a{ width:575px; float:left; font-size:14px; overflow:hidden; }
+.news_3 li span{ float:right;  width:95px;}
+
+
+.news_4 { padding:15px; float:left; border-bottom: 1px dotted #e1e1e1;}
+.news_4 h2{word-break:keep-all;/* 不换行 */white-space:nowrap;/* 不换行 */width:400px;overflow: hidden;text-overflow:ellipsis;float:left;}
+.news_4 h2 a{ font-size:14px; line-height:35px;}
+.news_4 span img{ width:136px; height:136px; border:1px solid #e1e1e1; padding:1px; float:left; margin-right:10px;}
+
+
+.news_5{ float:left;}
+.news_5 ul{ width:338px; float:left; padding:5px 15px 15px 15px; border-right:1px dotted #ccc; background-image:url(../images/gradient.gif); background-position:0px -320px; background-repeat:repeat-x;}
+.news_5 ul li{word-break:keep-all;/* 不换行 */white-space:nowrap;/* 不换行 */width:250px;overflow: hidden;text-overflow:ellipsis;}
+.news_5 h3{ font-size:12px; font-weight:normal; line-height:30px;}
+.news_5 h3 strong{ float:left; width:295px;}
+
+
+
+
+.news_bottom{ width:738px;border:1px solid #e6e6e6; float:left; margin-top:10px; background:#f9f9f9;}
+.news_bottom h2{ padding-left:20px; line-height:35px; font-size:14px;}
+.news_bottom ul{ width:348px; float:left; padding:0px 10px 10px 10px;}
+.news_bottom ul li a{ font-size:14px;}
+
+
+.pagecount{ margin-top:-2px;}
+
+
+/************************ fudaoxiaoguolist start ***************************/
+
+.x_w_con5{clear:both;}/*4面边有填充*/
+.minhei450{min-height:450px;_height:expression((document.documentElement.clientHeight||document.body.clientHeight)>450?"450px":"");}
+.x_w_xq  h1{background:url("/images/y_x_ico.gif") no-repeat  0px -70px; width:91px; height:41px; padding:5px 0px 5px 20px;font-family:"微软雅黑","宋体";font-size:16px;font-weight: bold;line-height:22px;color:#ffffff; background-repeat:no-repeat; border:none; }
+.x_w_xq .t2{background:url("/images/x_w_fd_bg01.gif") no-repeat;width:628px;height:21px;margin-top:5px;}
+.x_w_xq .m2{background:url("/images/x_w_fd_bg02.gif") repeat-y  ;width:604px;padding:0px 12px 10px 12px;line-height:22px; }
+.x_w_xq .m2 p.p2{background:url("/images/x_w_fd_xq01.gif") no-repeat  ; padding:3px 0px 10px 50px;line-height:22px; }
+.x_w_xq .m2 p{background:url("/images/x_w_fd_xq02.gif") no-repeat  ; padding:3px 0px 10px 50px;line-height:22px; }
+.x_w_xq .m2 span{ padding:5px;line-height:22px; display:block; }
+.x_w_xq .b2{width:628px;height:1px;margin-bottom:15px;background-image: url(/images/x_w_fd_bg03.gif);background-repeat: repeat-x;background-position: 0px 0px;}
+.x_w_xq h3{background:url("/images/x_w_tips_i.gif") no-repeat left;padding-left:12px;font-size:15px;clear:both; font-weight:bold; color:#666; }
+.x_w_xq .m3{width:583px;padding:10px 12px 20px ;line-height:22px;color:#666; }
+.x_w_xq h2{background:url("/images/x_w_tips_i.gif") no-repeat left;padding-left:12px;font-size:15px;clear:both; font-weight:bold; }
+.x_w_xq .t{background:url("/images/x_w_fd_bg04.gif") no-repeat;width:607px;height:16px;margin-top:5px;}
+.x_w_xq .m{background:url("/images/x_w_fd_bg05.gif") repeat-y  ;width:583px;padding:0px 12px;line-height:22px; }
+.x_w_xq .b{background:url("/images/x_w_fd_bg06.gif") no-repeat 0px -2px;width:607px;height:6px;margin-bottom:15px;}
+.font14b-s-yel{ font-size:14px; font-weight:bold; color:#f88d0e;}
+.font26-y-yel{ font-size:26px; font-weight: normal; color:#f88d0e;font-family:"微软雅黑","宋体";}
+.font12-s-yel{ font-size:12px; font-weight: normal; color:#a87362;}
+/************************ fudaoxiaoguolist end ***************************/
+
+
+
+

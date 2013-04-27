@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	
+	<!--  <constant name="struts.objectFactory" value="spring"/>-->
+	<!-- 开发模式 -->
+	<constant name="struts.devMode" value="true"/>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.i18n.encoding" value="utf-8" />   
+    <!-- 加入下面的配置修改struts.xml不需重启服务 --> 
+	<constant name="struts.configuration.xml.reload" value="true"/>
+	<constant name="struts.multipart.maxSize" value="5242880"/>
+	
+	<!-- 后台用户登录 -->
+ 	<package name="login_backend" extends="struts-default" namespace="/">
+	    <action name="loginBack" class="managerAction" method="login">
+			<result name="success">backend/index.jsp</result>
+			<result name="error">backend/login.jsp</result>
+		</action>
+	</package>
+	<!-- 后台 start-->
+	<package name="backend" extends="struts-default" namespace="/">
+		<!-- 登录验证拦截器 -->
+		<interceptors>
+			<interceptor name="authority" class="com.interceptor.AuthorizationInterceptor">
+				<param name="excludemethods">login</param>
+			</interceptor>
+			<interceptor-stack name="authorityStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="authority"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="authorityStack"></default-interceptor-ref>
+		<!-- 全局result -->
+		<global-results>
+			<result name="login" type="redirect">/backend/logout.jsp</result>
+		</global-results>
+		
+		<!-- 基础信息start -->
+		<action name="addInfo*" class="infoAction" method="addInfo{1}">
+			<result name="success" type="redirect">initInfo</result>
+			<result name="error">404.jsp</result>
+		</action>
+		<action name="delInfo*" class="infoAction" method="delInfo{1}">
+			<result name="success" type="redirect">initInfo</result>
+			<result name="error">404.jsp</result>
+		</action>
+		<action name="initInfo" class="infoAction" method="initInfo">
+			<result name="success">/backend/editInfo.jsp</result>
+			<result name="error">404.jsp</result>
+		</action>
+		<!-- 基础信息end -->
+		<!-- 后台新闻操作start -->
+		<action name="init*" class="{1}Action" method="init{1}">
+			<result name="success">backend/edit{1}.jsp</result>
+			<result name="error">404.jsp</result>
+		</action>
+		<action name="add*" class="{1}Action" method="add{1}">
+			<!-- 防止重复提交 -->
+			<interceptor-ref name="token"></interceptor-ref>
+			<interceptor-ref name="authorityStack"></interceptor-ref>
+     		<result name="invalid.token" type="redirect">list{1}.action?state=${state}</result>
+			<result name="success" type="redirect">list{1}.action?state=${state}</result>
+			<result name="error">404.jsp</result>
+		</action>
+		<action name="list*" class="{1}Action" method="list{1}">
+			<result name="success">backend/listNews.jsp</result>
+			<result name="error">404.jsp</result>
+		</action>
+		<action name="update*" class="{1}Action" method="update{1}">
+			<result name="success" type="chain">init{1}</result>
+			<result name="error">404.jsp</result>
+		</action>
+		<action name="del*" class="{1}Action" method="del{1}">
+			<result name="success" type="redirect">list{1}.action</result>
+			<result name="error">404.jsp</result>
+		</action>
+		<action name="remove*" class="{1}Action" method="remove{1}">
+			<result name="success" type="redirect">list{1}.action</result>
+			<result name="error">404.jsp</result>
+		</action>
+		<!-- 后台新闻操作end -->
+		
+	</package>
+	<package name="frontend" extends="struts-default" namespace="/">
+		<!-- 前台新闻操作start -->
+		<action name="fList*" class="{1}Action" method="fList{1}">
+			<result name="success">frontend/{1}_list.jsp</result>
+			<result name="error">404.jsp</result>
+		</action>
+		<action name="fDetail*" class="{1}Action" method="fDetail{1}">
+			<result name="success">frontend/{1}_detail.jsp</result>
+			<result name="error">404.jsp</result>
+		</action>
+		<!-- 前台新闻操作end -->
+	</package>
+</struts>

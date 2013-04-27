@@ -1,0 +1,41 @@
+
+.top_pic{
+	background: url(../images/front_top.jpg) no-repeat;
+	margin:0 auto;
+	width:1000px;
+	height:107px;
+}
+.center{
+	width:1000px; 
+	margin:0 auto;
+}
+
+	.menu{
+		background: url(../images/gradient.gif);
+		width: 100%;
+		overflow: hidden;
+		padding-bottom: 5px;
+	}
+	.menu ul{
+		margin: auto;
+		height: 36px;
+		width: 1000px;
+		line-height: 25px;
+		overflow: hidden; 
+	
+	}
+	
+
+	.menu ul li a{
+		text-align:center;
+		font-size: 15px;
+		height: 20px;
+		margin-top: 8px;
+		float: left;
+		color:#fff;
+		width:9.4%;
+		text-decoration: none;
+		border-right:1px solid #fffaf2;
+
+	}
+	.menu ul a:hover {text-decoration:underline;}

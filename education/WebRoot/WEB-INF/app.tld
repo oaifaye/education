@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE taglib
+  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+  "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>Application Tag Library</shortname>
+	<uri>http://jakarta.apache.org/taglibs/struts-example-1.0</uri>
+	<info>
+		This tag library contains functionality for the Addressbook
+		Struts Sample Application. With small modifications, they can be
+		used
+		as generic tags.
+	</info>
+	<!-- 一对一 -->
+	<tag>
+		<name>DisplayTag_YiDuiYiList</name>
+		<tagclass>com.tag.DisplayTag_YiDuiYiList</tagclass>
+		<info>			
+		</info>
+		<attribute>
+			<name>gradeId</name>
+			<rtexprvalue>true</rtexprvalue>  
+		</attribute>
+	</tag>
+	<!-- 明星学员 -->
+	<tag>
+		<name>DisplayTag_GoodStudentList</name>
+		<tagclass>com.tag.DisplayTag_GoodStudentList</tagclass>
+		<info>			
+		</info>
+	</tag>
+	<!-- 教育资讯top文章-->
+	<tag>
+		<name>DisplayTag_EducationalCounselingTop</name>
+		<tagclass>com.tag.DisplayTag_EducationalCounselingTop</tagclass>
+		<info>			
+		</info>
+		<attribute>
+			<name>eduCounselingSecondId</name>
+			<rtexprvalue>true</rtexprvalue>  
+		</attribute>
+	</tag>
+	<!-- 教育资讯list-->
+	<tag>
+		<name>DisplayTag_EducationalCounselingList</name>
+		<tagclass>com.tag.DisplayTag_EducationalCounselingList</tagclass>
+		<info>			
+		</info>
+		<attribute>
+			<name>eduCounselingSecondId</name>
+			<rtexprvalue>true</rtexprvalue>  
+		</attribute>
+		<attribute>
+			<name>quantity</name>
+			<rtexprvalue>true</rtexprvalue>  
+		</attribute>
+	</tag>
+</taglib>
+
